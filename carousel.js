@@ -28,6 +28,15 @@ var carousel3D = function(options) {
 	    return false;
 	})();
 
+	// Checks if safari is the user agent
+	var isUASafari = function () {
+		if ((navigator.userAgent.toLowerCase().indexOf('safari') != -1) && (navigator.userAgent.toLowerCase().indexOf('chrome') == -1)) {
+			return true;
+		} else {
+			return false
+		}
+	};
+
 	// Initialises the settings with options
 	exports.init = function(options) {
 		if (options && typeof options === "object") {
@@ -46,8 +55,8 @@ var carousel3D = function(options) {
 	carousel.translation = ((container.clientHeight)*0.5) / Math.tan( carousel.incrementAngle * (Math.PI/360) );
 
 	// Initialising styles of the different objects
-	container.style.paddingTop 	 = containerPaddingTop + carousel.translation / 2 + "px";
-	container.style.paddingBottom = containerPaddingBottom + carousel.translation / 2 + "px";
+	container.style.paddingTop 	 = isUASafari() ? containerPaddingTop + carousel.translation+ "px" : containerPaddingTop + carousel.translation / 2 + "px";
+	container.style.paddingBottom = isUASafari() ? containerPaddingBottom + carousel.translation + "px" : containerPaddingBottom + carousel.translation / 2 + "px";
 	carousel.style[supportedTransform] = "translateZ( -" + carousel.translation + "px )";
 	carousel.style[supportedTransform + "Origin"] = "50% 50% -" + carousel.translation + "px";
 	
@@ -60,7 +69,6 @@ var carousel3D = function(options) {
 		addTransform(images[i], carousel.incrementAngle * i, carousel.translation);
 		images[i].idNumber = i;
 	}
-
 
 
 	// Implementing rotation actions
