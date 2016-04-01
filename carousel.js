@@ -59,7 +59,7 @@ var carousel3D = function(options) {
 	container.style.paddingBottom = isUASafari() ? containerPaddingBottom + carousel.translation + "px" : containerPaddingBottom + carousel.translation / 2 + "px";
 	carousel.style[supportedTransform] = "translateZ( -" + carousel.translation + "px )";
 	carousel.style[supportedTransform + "Origin"] = "50% 50% -" + carousel.translation + "px";
-	
+
 	function addTransform(elem, angle, distance) {
 		elem.style[supportedTransform] = "rotateX( " + angle + "deg ) translateZ( " + distance + "px )";
 		return elem;
@@ -96,7 +96,7 @@ var carousel3D = function(options) {
     	event.preventDefault();
     	movable = true;
     	yMouse = event.pageY;
-    	carousel.onmousemove = function(event) {
+    	container.onmousemove = function(event) {
     		rotateCarousel(event.pageY, yMouse, "onmouseup");
     	};
     });
@@ -107,7 +107,7 @@ var carousel3D = function(options) {
     	container.removeEventListener("mousedown");
     	movable = true;
     	yTouch = event.targetTouches[0].pageY;
-    	carousel.ontouchmove = function(event) {
+    	container.ontouchmove = function(event) {
     		rotateCarousel(event.targetTouches[0].pageY, yTouch, "ontouchend");
     	};
     });
