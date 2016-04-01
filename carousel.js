@@ -46,14 +46,13 @@ var carousel3D = function(options) {
 	carousel.translation = ((container.clientHeight)*0.5) / Math.tan( carousel.incrementAngle * (Math.PI/360) );
 
 	// Initialising styles of the different objects
-	carousel.style[supportedTransform + "Origin"] = "50% 50% -" + carousel.translation + "px";
+	container.style.paddingTop 	 = containerPaddingTop + carousel.translation / 2 + "px";
+	container.style.paddingBottom = containerPaddingBottom + carousel.translation / 2 + "px";
 	carousel.style[supportedTransform] = "translateZ( -" + carousel.translation + "px )";
-	container.style.paddingTop 	 = 10 + containerPaddingTop + carousel.translation / 2 + "px";
-	container.style.paddingBottom = 10 + containerPaddingBottom + carousel.translation / 2 + "px";
+	carousel.style[supportedTransform + "Origin"] = "50% 50% -" + carousel.translation + "px";
 	
 	function addTransform(elem, angle, distance) {
-		var transformation = "rotateX( " + angle + "deg ) translateZ( " + distance + "px )";
-		elem.style[supportedTransform] = transformation;
+		elem.style[supportedTransform] = "rotateX( " + angle + "deg ) translateZ( " + distance + "px )";
 		return elem;
 	}
 	
@@ -62,7 +61,9 @@ var carousel3D = function(options) {
 		images[i].idNumber = i;
 	}
 
-	// Implementing rotation on mouse drag up or down
+
+
+	// Implementing rotation actions
 
 	var yMouse = 0, 	 // y coordinate of the mouse pointer when the event is called
 		yTouch = 0,
@@ -82,6 +83,7 @@ var carousel3D = function(options) {
 		}
     };
 
+    // On mouse events
     container.addEventListener("mousedown", function(event){
     	event.preventDefault();
     	movable = true;
@@ -91,6 +93,7 @@ var carousel3D = function(options) {
     	};
     });
 
+    // On touch events
     container.addEventListener("touchstart", function(event){
     	event.preventDefault();
     	container.removeEventListener("mousedown");
@@ -101,8 +104,7 @@ var carousel3D = function(options) {
     	};
     });
 
-    // Implementing rotation on mouse key up or down or tab (accessibility)
-
+    // on key events
     document.addEventListener("keydown", function(event){
     	event.preventDefault();
     	if (event.keyCode === settings.rotateUp) {
