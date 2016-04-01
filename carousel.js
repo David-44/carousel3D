@@ -65,21 +65,39 @@ var carousel3D = function(options) {
 	// Implementing rotation on mouse drag up or down
 
 	var yMouse = 0, 	 // y coordinate of the mouse pointer when the event is called
-    	movable = false; // movable is true only when the mouse has been pressed on the container
+		yTouch = 0,
+    	movable = false, // movable is true only when the mouse has been pressed on the container
+    	rotationAngle = 0; // variable holding the rotation on the z axis
+
+
+    // helper function that rotates the carousel based on the movement on screen
+    // It also stops the rotation if the endEvent is triggered
+    var rotateCarousel = function(targetY, originalY, endEvent) {
+    	if (movable) {
+    		rotationAngle = 0 - Math.asin((targetY - originalY) / (carousel.translation)) * (180 / Math.PI);
+    		addTransform(carousel, rotationAngle, 0 - carousel.translation);
+    		document[endEvent] = function() {
+    			movable = false; 
+    		};
+		}
+    };
 
     container.addEventListener("mousedown", function(event){
     	event.preventDefault();
     	movable = true;
-    	var rotationAngle = 0;
     	yMouse = event.pageY;
     	carousel.onmousemove = function(event) {
-    		if (movable) {
-	    		rotationAngle = 0 - Math.asin((event.pageY - yMouse) / (carousel.translation)) * (180 / Math.PI);
-	    		addTransform(carousel, rotationAngle, 0 - carousel.translation);
-	    		document.onmouseup = function() {
-	    			movable = false; 
-	    		};
-    		}
+    		rotateCarousel(event.pageY, yMouse, "onmouseup");
+    	};
+    });
+
+    container.addEventListener("touchstart", function(event){
+    	event.preventDefault();
+    	container.removeEventListener("mousedown");
+    	movable = true;
+    	yTouch = event.targetTouches[0].pageY;
+    	carousel.ontouchmove = function(event) {
+    		rotateCarousel(event.targetTouches[0].pageY, yTouch, "ontouchend");
     	};
     });
 
