@@ -42,7 +42,7 @@ Note that the top level div can be any block level element (section...).
 Either link to the file carousel.css in the head of your document or copy its content in your own file.
 you can modify the following rules :
 * `.carousel-container` : Anything can be changed.
-* `.carousel img` : Don't touch the first 5 lines, the rest is up to your creativity.
+* `.carousel img` : Don't touch the first 5 lines. Also, if modifying the `height` and `top` property, keep in mind that height + 2 top should be equal to 100%.
 * `.carousel` and `sub-container` : Do not touch.
 
 #### Javascript
