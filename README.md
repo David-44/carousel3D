@@ -5,7 +5,7 @@ The [demo](http://morisset-web.co.uk/3D_carousel/index.html) is here.
 
 This carousel has been inspired by this [awesome tutorial on 3D transforms](http://desandro.github.io/3dtransforms/). 
 
-Since support is far from perfect on 3D transform, this plug-in will require a fallback if used in a production environment.
+Since support is far from perfect on 3D transforms, this plug-in will require a fallback if used in a production environment.
 
 ## Features
 * No need for external libraries.
@@ -14,7 +14,7 @@ Since support is far from perfect on 3D transform, this plug-in will require a f
 ## Setup
 
 #### Markup
-you need that kind of html structure :
+you need this kind of html structure :
 
 ```html
   <div class="carousel-container" id="carousel-container">
